@@ -30,22 +30,7 @@ public class AddToCardSuite {
     JavascriptExecutor js;
     @Before
     public void setUp() {
-        driver = new ChromeDriver();
-        js = (JavascriptExecutor) driver;
-        vars = new HashMap<String, Object>();
-        driver.get("https://rozetka.com.ua/mobile-phones/c80003/");
-        // 2 | setWindowSize | 1440x900 |  |
-        driver.manage().window().setSize(new Dimension(1440, 900));
-        // 3 | click | linkText=Samsung Galaxy M20 4/64GB Ocean Blue (SM-M205FZBWSEK) |  |
-        driver.findElement(By.linkText("Samsung Galaxy M20 4/64GB Ocean Blue (SM-M205FZBWSEK)")).click();
-        // 4 | mouseOver | css=.btn-link-i:nth-child(2) |  |
-        {
-            WebElement element = driver.findElement(By.cssSelector(".btn-link-i:nth-child(2)"));
-            Actions builder = new Actions(driver);
-            builder.moveToElement(element).perform();
-        }
-        // 5 | click | css=.btn-link-i:nth-child(2) |  |
-        driver.findElement(By.cssSelector(".btn-link-i:nth-child(2)")).click();
+
     }
     @After
     public void tearDown() {
@@ -58,13 +43,43 @@ public class AddToCardSuite {
         // 1 | open | https://rozetka.com.ua/mobile-phones/c80003/ |  |
 
 
+//        driver.get("https://rozetka.com.ua/mobile-phones/c80003/");
+        // 2 | setWindowSize | 1440x900 |  |
+//        driver.manage().window().setSize(new Dimension(1440, 900));
+        // 3 | click | css=.hub-i-cart-link-count |  |
+//        {
+//            WebElement element = driver.findElement(By.className("hub-i-link hub-i-cart-link-count sprite-side whitelink"));
+//            Actions builder = new Actions(driver);
+//            builder.moveToElement(element).perform();
+//        }
+        driver = new ChromeDriver();
+        js = (JavascriptExecutor) driver;
+        vars = new HashMap<String, Object>();
         driver.get("https://rozetka.com.ua/mobile-phones/c80003/");
         // 2 | setWindowSize | 1440x900 |  |
-        driver.manage().window().setSize(new Dimension(1440, 900));
-        // 3 | click | css=.hub-i-cart-link-count |  |
-        driver.findElement(By.className("btn-link-i")).click();
+        driver.manage().window().fullscreen();// setSize(new Dimension(1440, 900));
+        // 3 | click | linkText=Samsung Galaxy M20 4/64GB Ocean Blue (SM-M205FZBWSEK) |  |
+        driver.findElement(By.linkText("Samsung Galaxy M20 4/64GB Ocean Blue (SM-M205FZBWSEK)")).click();
+        // 4 | mouseOver | css=.btn-link-i:nth-child(2) |  |
+//        {
+//            WebElement element = driver.findElement(By.cssSelector(".btn-link-i:nth-child(2)"));
+//            Actions builder = new Actions(driver);
+//            builder.moveToElement(element).perform();
+//        }
+        // 5 | click | css=.btn-link-i:nth-child(2) |  |
+        driver.findElement(By.cssSelector(".btn-link-i:nth-child(2)")).click();
+
+//        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+        {
+            WebElement element = driver.findElement(By.cssSelector(".header-actions__button_type_cart > .header-actions__button-icon-wrap"));
+            Actions builder = new Actions(driver);
+            builder.moveToElement(element).perform();
+        }
+        driver.findElement(By.className("cart-check-button")).click();
+
+//        driver.findElement(By.className("hub-i-link hub-i-cart-link-count sprite-side whitelink")).click();
         // 4 | click | id=popup-checkout |  |
-        driver.manage().timeouts().implicitlyWait(1,TimeUnit.SECONDS);
+//        driver.manage().timeouts().implicitlyWait(1,TimeUnit.SECONDS);
 //        driver.findElement(By.id("popup-checkout")).click();
 //        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 //        driver.findElement(By.id("reciever_name")).click();
@@ -88,15 +103,13 @@ public class AddToCardSuite {
 //            Actions builder = new Actions(driver);
 //            builder.moveToElement(element).perform();
 //        }
-        // 13 | type | id=reciever_email | avksentiev5@gmail.com |
         driver.findElement(By.id("reciever_email")).sendKeys("avksentiev5@gmail.com");
-        // 14 | click | css=.opaque > .btn-link-i |  |
         driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
-        driver.findElement(By.className("btn-link-i")).submit();
-        // 15 | click | linkText=Выберите подходящее отделение |  |
+        driver.findElement(By.className("btn-link-i")).click();
+
         driver.findElement(By.linkText("Выберите подходящее отделение")).click();
-        // 16 | click | linkText=№5, пр-т. Победы, д. 24 (ТРЦ Smart Plaza, м. Политехнический институт) |  |
         driver.findElement(By.linkText("№5, пр-т. Победы, д. 24 (ТРЦ Smart Plaza, м. Политехнический институт)")).click();
+
         // 17 | mouseDownAt | id=make-order | 11.265625,17.046875 |
         {
             WebElement element = driver.findElement(By.id("make-order"));
